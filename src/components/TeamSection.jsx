@@ -12,6 +12,7 @@ const cardVars = {
 
 export default function TeamSection() {
   const [isMobile, setIsMobile] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -19,6 +20,8 @@ export default function TeamSection() {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+
+  const togglePause = () => setPaused((p) => !p);
 
   return (
     <section id="equipe" className="team">
@@ -32,9 +35,9 @@ export default function TeamSection() {
 
         {isMobile ? (
           <div className="team__marquee">
-            <div className="team__marquee-track">
+            <div className={`team__marquee-track${paused ? ' team__marquee-track--paused' : ''}`}>
               {[...team, ...team].map((p, i) => (
-                <div key={`${p.name}-${i}`} className="team__card team__card--mobile">
+                <div key={`${p.name}-${i}`} className="team__card team__card--mobile" onClick={togglePause}>
                   <div className="team__img-wrapper">
                     <img src={p.img} alt={p.name} className="team__img" loading="lazy" />
                   </div>

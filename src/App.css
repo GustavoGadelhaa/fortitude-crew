@@ -1139,24 +1139,27 @@
   .team__marquee {
     overflow: hidden;
     width: 100%;
-    max-height: 80vh;
   }
 
   .team__marquee-track {
     display: flex;
-    flex-direction: column;
     gap: 1rem;
-    animation: teamMarquee 16s linear infinite;
+    width: max-content;
+    animation: teamMarquee 10s linear infinite;
+  }
+
+  .team__marquee-track--paused {
+    animation-play-state: paused;
   }
 
   .team__marquee-track .team__card {
-    width: 100%;
+    width: 280px;
     flex-shrink: 0;
   }
 
   @keyframes teamMarquee {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .team__img-wrapper {
@@ -1212,26 +1215,44 @@
     margin-bottom: 0.5rem;
   }
 
-  .services__marquee {
-    overflow: hidden;
+  .services__carousel-3d {
+    perspective: 1000px;
     width: 100%;
-  }
-
-  .services__marquee-track {
+    height: 300px;
     display: flex;
-    gap: 12px;
-    width: max-content;
-    animation: servicesMarquee 12s linear infinite;
+    justify-content: center;
+    align-items: center;
   }
 
-  .services__marquee-track .services__card {
+  .services__carousel-3d-track {
     width: 260px;
-    flex-shrink: 0;
+    height: 280px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: carousel3d 14s linear infinite;
+    cursor: pointer;
   }
 
-  @keyframes servicesMarquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  .services__carousel-3d-track--paused {
+    animation-play-state: paused;
+  }
+
+  .services__card--3d {
+    position: absolute;
+    width: 260px;
+    height: 280px;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @keyframes carousel3d {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(-360deg); }
   }
 
   /* Reduce gap between sections */

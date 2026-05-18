@@ -34,6 +34,7 @@ const icons = [
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -41,6 +42,8 @@ export default function Services() {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+
+  const togglePause = () => setPaused((p) => !p);
 
   return (
     <section id="servicos" className="services">
@@ -54,12 +57,16 @@ export default function Services() {
         </p>
 
         {isMobile ? (
-          <div className="services__marquee">
-            <div className="services__marquee-track">
-              {[...services, ...services].map((s, i) => (
-                <div key={`${s.title}-${i}`} className="services__card services__card--mobile">
+          <div className="services__carousel-3d">
+            <div className={`services__carousel-3d-track${paused ? ' services__carousel-3d-track--paused' : ''}`} onClick={togglePause}>
+              {services.map((s, i) => (
+                <div
+                  key={s.title}
+                  className="services__card services__card--3d"
+                  style={{ transform: `rotateY(${i * 120}deg) translateZ(90px)` }}
+                >
                   <div className="services__card-line" />
-                  <div className="services__icon-wrap">{icons[i % services.length]}</div>
+                  <div className="services__icon-wrap">{icons[i]}</div>
                   <span className="services__badge">{s.badge}</span>
                   <h3 className="services__title">{s.title}</h3>
                   <p className="services__desc">{s.desc}</p>
