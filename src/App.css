@@ -1154,6 +1154,15 @@
     margin-bottom: 0.5rem;
   }
 
+  .services__swiper {
+    width: 100%;
+    padding-bottom: 1rem;
+  }
+
+  .services__slide {
+    width: 75vw !important;
+  }
+
   /* Reduce gap between sections */
   .testimonials {
     padding: 3rem 1.5rem;
