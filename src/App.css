@@ -1229,12 +1229,11 @@
     height: 280px;
     position: relative;
     transform-style: preserve-3d;
-    animation: carousel3d 14s linear infinite;
-    cursor: pointer;
+    cursor: grab;
   }
 
-  .services__carousel-3d-track--paused {
-    animation-play-state: paused;
+  .services__carousel-3d-track:active {
+    cursor: grabbing;
   }
 
   .services__card--3d {
@@ -1250,10 +1249,6 @@
     justify-content: center;
   }
 
-  @keyframes carousel3d {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(-360deg); }
-  }
 
   /* Reduce gap between sections */
   .testimonials {

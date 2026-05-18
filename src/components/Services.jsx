@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { services } from '../constants';
 
@@ -34,7 +34,11 @@ const icons = [
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const trackRef = useRef(null);
+  const angleRef = useRef(0);
+  const lastXRef = useRef(0);
+  const draggingRef = useRef(false);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -43,7 +47,44 @@ export default function Services() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  const togglePause = () => setPaused((p) => !p);
+  const updateTransform = useCallback(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `rotateY(${angleRef.current}deg)`;
+    }
+  }, []);
+
+  const handlePointerDown = useCallback((e) => {
+    draggingRef.current = true;
+    lastXRef.current = e.clientX;
+  }, []);
+
+  const handlePointerMove = useCallback((e) => {
+    if (!draggingRef.current) return;
+    const delta = (lastXRef.current - e.clientX) * 0.6;
+    angleRef.current = (angleRef.current + delta) % 360;
+    lastXRef.current = e.clientX;
+    updateTransform();
+  }, [updateTransform]);
+
+  const handlePointerUp = useCallback(() => {
+    draggingRef.current = false;
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    let lastTime = performance.now();
+    const animate = (now) => {
+      if (!draggingRef.current) {
+        const delta = (now - lastTime) * 0.025;
+        angleRef.current = (angleRef.current + delta) % 360;
+        updateTransform();
+      }
+      lastTime = now;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isMobile, updateTransform]);
 
   return (
     <section id="servicos" className="services">
@@ -57,8 +98,14 @@ export default function Services() {
         </p>
 
         {isMobile ? (
-          <div className="services__carousel-3d">
-            <div className={`services__carousel-3d-track${paused ? ' services__carousel-3d-track--paused' : ''}`} onClick={togglePause}>
+          <div className="services__carousel-3d"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
+            style={{ touchAction: 'none' }}
+          >
+            <div className="services__carousel-3d-track" ref={trackRef}>
               {services.map((s, i) => (
                 <div
                   key={s.title}
