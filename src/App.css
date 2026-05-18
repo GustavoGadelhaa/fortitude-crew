@@ -1144,22 +1144,17 @@
   .team__marquee-track {
     display: flex;
     gap: 1rem;
-    width: max-content;
-    animation: teamMarquee 10s linear infinite;
+    will-change: transform;
+    cursor: grab;
   }
 
-  .team__marquee-track--paused {
-    animation-play-state: paused;
+  .team__marquee-track:active {
+    cursor: grabbing;
   }
 
   .team__marquee-track .team__card {
     width: 280px;
     flex-shrink: 0;
-  }
-
-  @keyframes teamMarquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
   }
 
   .team__img-wrapper {
@@ -1218,15 +1213,15 @@
   .services__carousel-3d {
     perspective: 1000px;
     width: 100%;
-    height: 270px;
+    height: 340px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .services__carousel-3d-track {
-    width: 180px;
-    height: 250px;
+    width: 260px;
+    height: 310px;
     position: relative;
     transform-style: preserve-3d;
     cursor: grab;
@@ -1238,36 +1233,36 @@
 
   .services__card--3d {
     position: absolute;
-    width: 180px;
-    height: 250px;
+    width: 260px;
+    height: 310px;
     top: 0;
     left: 0;
     backface-visibility: hidden;
-    padding: 1rem 0.75rem;
+    padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   .services__card--3d .services__icon-wrap {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 0.5rem;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.75rem;
   }
 
   .services__card--3d .services__title {
-    font-size: 0.85rem;
-    margin-bottom: 0.35rem;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
   }
 
   .services__card--3d .services__desc {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
   }
 
   .services__card--3d .services__badge {
-    font-size: 0.5rem;
-    padding: 0.15rem 0.5rem;
-    margin-bottom: 0.35rem;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
 

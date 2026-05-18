@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { team } from '../constants';
 
@@ -12,7 +12,11 @@ const cardVars = {
 
 export default function TeamSection() {
   const [isMobile, setIsMobile] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const trackRef = useRef(null);
+  const posRef = useRef(0);
+  const lastXRef = useRef(0);
+  const draggingRef = useRef(false);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -21,7 +25,50 @@ export default function TeamSection() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  const togglePause = () => setPaused((p) => !p);
+  const updateTransform = useCallback(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(${posRef.current}px)`;
+    }
+  }, []);
+
+  const handlePointerDown = useCallback((e) => {
+    draggingRef.current = true;
+    lastXRef.current = e.clientX;
+  }, []);
+
+  const handlePointerMove = useCallback((e) => {
+    if (!draggingRef.current) return;
+    const delta = e.clientX - lastXRef.current;
+    posRef.current += delta;
+    lastXRef.current = e.clientX;
+    updateTransform();
+  }, [updateTransform]);
+
+  const handlePointerUp = useCallback(() => {
+    draggingRef.current = false;
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const cardWidth = 280 + 16;
+    const totalWidth = cardWidth * team.length;
+    let lastTime = performance.now();
+
+    const animate = (now) => {
+      if (!draggingRef.current) {
+        const delta = (now - lastTime) * 0.04;
+        posRef.current -= delta;
+        if (posRef.current <= -totalWidth) posRef.current += totalWidth;
+        updateTransform();
+      }
+      lastTime = now;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isMobile, updateTransform, team.length]);
 
   return (
     <section id="equipe" className="team">
@@ -34,10 +81,16 @@ export default function TeamSection() {
         </p>
 
         {isMobile ? (
-          <div className="team__marquee">
-            <div className={`team__marquee-track${paused ? ' team__marquee-track--paused' : ''}`}>
+          <div className="team__marquee"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
+            style={{ touchAction: 'none' }}
+          >
+            <div className="team__marquee-track" ref={trackRef}>
               {[...team, ...team].map((p, i) => (
-                <div key={`${p.name}-${i}`} className="team__card team__card--mobile" onClick={togglePause}>
+                <div key={`${p.name}-${i}`} className="team__card team__card--mobile">
                   <div className="team__img-wrapper">
                     <img src={p.img} alt={p.name} className="team__img" loading="lazy" />
                   </div>
