@@ -35,7 +35,7 @@ const icons = [
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef(null);
-  const posRef = useRef(0);
+  const angleRef = useRef(0);
   const lastXRef = useRef(0);
   const draggingRef = useRef(false);
   const rafRef = useRef(null);
@@ -49,7 +49,7 @@ export default function Services() {
 
   const updateTransform = useCallback(() => {
     if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(${posRef.current}px)`;
+      trackRef.current.style.transform = `rotateY(${angleRef.current}deg)`;
     }
   }, []);
 
@@ -60,8 +60,8 @@ export default function Services() {
 
   const handlePointerMove = useCallback((e) => {
     if (!draggingRef.current) return;
-    const delta = e.clientX - lastXRef.current;
-    posRef.current += delta;
+    const delta = (e.clientX - lastXRef.current) * 0.6;
+    angleRef.current = (angleRef.current + delta) % 360;
     lastXRef.current = e.clientX;
     updateTransform();
   }, [updateTransform]);
@@ -72,15 +72,11 @@ export default function Services() {
 
   useEffect(() => {
     if (!isMobile) return;
-    const cardWidth = 260 + 12;
-    const totalWidth = cardWidth * services.length;
     let lastTime = performance.now();
-
     const animate = (now) => {
       if (!draggingRef.current) {
-        const delta = (now - lastTime) * 0.04;
-        posRef.current -= delta;
-        if (posRef.current <= -totalWidth) posRef.current += totalWidth;
+        const delta = (now - lastTime) * 0.032;
+        angleRef.current = (angleRef.current - delta) % 360;
         updateTransform();
       }
       lastTime = now;
@@ -88,7 +84,7 @@ export default function Services() {
     };
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [isMobile, updateTransform, services.length]);
+  }, [isMobile, updateTransform]);
 
   return (
     <section id="servicos" className="services">
@@ -102,18 +98,22 @@ export default function Services() {
         </p>
 
         {isMobile ? (
-          <div className="services__marquee"
+          <div className="services__carousel-3d"
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerUp}
             style={{ touchAction: 'none' }}
           >
-            <div className="services__marquee-track" ref={trackRef}>
-              {[...services, ...services].map((s, i) => (
-                <div key={`${s.title}-${i}`} className="services__card services__card--mobile">
+            <div className="services__carousel-3d-track" ref={trackRef}>
+              {services.map((s, i) => (
+                <div
+                  key={s.title}
+                  className="services__card services__card--3d"
+                  style={{ transform: `rotateY(${i * 120}deg) translateZ(80px)` }}
+                >
                   <div className="services__card-line" />
-                  <div className="services__icon-wrap">{icons[i % services.length]}</div>
+                  <div className="services__icon-wrap">{icons[i]}</div>
                   <span className="services__badge">{s.badge}</span>
                   <h3 className="services__title">{s.title}</h3>
                   <p className="services__desc">{s.desc}</p>
