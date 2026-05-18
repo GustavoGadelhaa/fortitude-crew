@@ -17,17 +17,17 @@ const solutions = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const item = {
-  hidden: { opacity: 0, x: -30 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
+  hidden: { opacity: 0, x: -20 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] } },
 };
 
 const itemR = {
-  hidden: { opacity: 0, x: 30 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
+  hidden: { opacity: 0, x: 20 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] } },
 };
 
 export default function ProblemsSolutions() {
@@ -42,20 +42,14 @@ export default function ProblemsSolutions() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="ps__col-header">
-            <svg className="ps__col-icon ps__col-icon--bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M15 9l-6 6M9 9l6 6" />
-            </svg>
-            <h3 className="ps__title">
+            <h3 className="ps__title ps__title--bad">
               CANSADO DE?
             </h3>
           </div>
           <div className="ps__list">
             {problems.map((p) => (
               <motion.li key={p} className="ps__item ps__item--bad" variants={item}>
-                <svg className="ps__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
+                <span className="ps__bullet ps__bullet--bad" />
                 {p}
               </motion.li>
             ))}
@@ -76,20 +70,14 @@ export default function ProblemsSolutions() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="ps__col-header">
-            <svg className="ps__col-icon ps__col-icon--good" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M9 12l2 2 4-4" />
-            </svg>
-            <h3 className="ps__title">
+            <h3 className="ps__title ps__title--good">
               AQUI VOCÊ <span className="accent">RECEBE</span>
             </h3>
           </div>
           <div className="ps__list">
             {solutions.map((s) => (
               <motion.li key={s} className="ps__item ps__item--good" variants={itemR}>
-                <svg className="ps__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
+                <span className="ps__bullet ps__bullet--good" />
                 {s}
               </motion.li>
             ))}

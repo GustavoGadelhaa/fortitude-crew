@@ -32,6 +32,38 @@ const icons = [
   </svg>,
 ];
 
+function TiltCard({ children, className }) {
+  const ref = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const card = ref.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const offsetX = (e.clientX - centerX) / (rect.width / 2);
+    const offsetY = (e.clientY - centerY) / (rect.height / 2);
+    setTilt({ x: offsetY * -8, y: offsetX * 8 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.15s ease-out' }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef(null);
@@ -124,21 +156,16 @@ export default function Services() {
         ) : (
           <div className="services__grid">
             {services.map((s, i) => (
-              <motion.div
+              <TiltCard
                 key={s.title}
                 className="services__card"
-                variants={cardVars}
-                custom={i}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.2 }}
               >
                 <div className="services__card-line" />
                 <div className="services__icon-wrap">{icons[i]}</div>
                 <span className="services__badge">{s.badge}</span>
                 <h3 className="services__title">{s.title}</h3>
                 <p className="services__desc">{s.desc}</p>
-              </motion.div>
+              </TiltCard>
             ))}
           </div>
         )}
