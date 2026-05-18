@@ -60,7 +60,7 @@ export default function Services() {
 
   const handlePointerMove = useCallback((e) => {
     if (!draggingRef.current) return;
-    const delta = (lastXRef.current - e.clientX) * 0.6;
+    const delta = (e.clientX - lastXRef.current) * 0.6;
     angleRef.current = (angleRef.current + delta) % 360;
     lastXRef.current = e.clientX;
     updateTransform();
@@ -75,8 +75,8 @@ export default function Services() {
     let lastTime = performance.now();
     const animate = (now) => {
       if (!draggingRef.current) {
-        const delta = (now - lastTime) * 0.025;
-        angleRef.current = (angleRef.current + delta) % 360;
+        const delta = (now - lastTime) * 0.04;
+        angleRef.current = (angleRef.current - delta) % 360;
         updateTransform();
       }
       lastTime = now;
@@ -110,7 +110,7 @@ export default function Services() {
                 <div
                   key={s.title}
                   className="services__card services__card--3d"
-                  style={{ transform: `rotateY(${i * 120}deg) translateZ(90px)` }}
+                  style={{ transform: `rotateY(${i * 120}deg) translateZ(60px)` }}
                 >
                   <div className="services__card-line" />
                   <div className="services__icon-wrap">{icons[i]}</div>

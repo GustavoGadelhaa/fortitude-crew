@@ -1218,15 +1218,15 @@
   .services__carousel-3d {
     perspective: 1000px;
     width: 100%;
-    height: 300px;
+    height: 270px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .services__carousel-3d-track {
-    width: 260px;
-    height: 280px;
+    width: 180px;
+    height: 250px;
     position: relative;
     transform-style: preserve-3d;
     cursor: grab;
@@ -1238,15 +1238,36 @@
 
   .services__card--3d {
     position: absolute;
-    width: 260px;
-    height: 280px;
+    width: 180px;
+    height: 250px;
     top: 0;
     left: 0;
     backface-visibility: hidden;
-    padding: 1.5rem 1.25rem;
+    padding: 1rem 0.75rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .services__card--3d .services__icon-wrap {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0.5rem;
+  }
+
+  .services__card--3d .services__title {
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .services__card--3d .services__desc {
+    font-size: 0.65rem;
+  }
+
+  .services__card--3d .services__badge {
+    font-size: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
 
