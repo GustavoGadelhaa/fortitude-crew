@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
 import { services } from '../constants';
 
 const cardVars = {
@@ -56,28 +54,19 @@ export default function Services() {
         </p>
 
         {isMobile ? (
-          <Swiper
-            modules={[Autoplay]}
-            loop={true}
-            speed={600}
-            autoplay={{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: false }}
-            slidesPerView="auto"
-            centeredSlides={true}
-            spaceBetween={12}
-            className="services__swiper"
-          >
-            {services.map((s, i) => (
-              <SwiperSlide key={s.title} className="services__slide">
-                <div className="services__card services__card--mobile">
+          <div className="services__marquee">
+            <div className="services__marquee-track">
+              {[...services, ...services].map((s, i) => (
+                <div key={`${s.title}-${i}`} className="services__card services__card--mobile">
                   <div className="services__card-line" />
-                  <div className="services__icon-wrap">{icons[i]}</div>
+                  <div className="services__icon-wrap">{icons[i % services.length]}</div>
                   <span className="services__badge">{s.badge}</span>
                   <h3 className="services__title">{s.title}</h3>
                   <p className="services__desc">{s.desc}</p>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              ))}
+            </div>
+          </div>
         ) : (
           <div className="services__grid">
             {services.map((s, i) => (
