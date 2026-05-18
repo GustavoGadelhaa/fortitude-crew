@@ -13,7 +13,6 @@ export default function TeamSection() {
   return (
     <section id="equipe" className="team">
       <div className="team__inner">
-        <span className="section-eyebrow">Quem vai te guiar</span>
         <h2 className="section-title">
           NOSSA <span className="accent">EQUIPE</span>
         </h2>
@@ -30,6 +29,7 @@ export default function TeamSection() {
               custom={i}
               initial="hidden"
               whileInView="show"
+              whileHover={{ scale: 1.08, y: -4, transition: { duration: 0.1 } }}
               viewport={{ once: true, amount: 0.2 }}
             >
               <div className="team__img-wrapper">
@@ -38,6 +38,7 @@ export default function TeamSection() {
               <div className="team__body">
                 <span className="team__tag">{p.role}</span>
                 <h3 className="team__name">{p.name}</h3>
+                {p.cred && <span className="team__cred">{p.cred}</span>}
                 <p className="team__desc">{p.desc}</p>
               </div>
             </motion.div>

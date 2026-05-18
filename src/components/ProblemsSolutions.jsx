@@ -8,11 +8,11 @@ const problems = [
 ];
 
 const solutions = [
-  'Profissionais formados e pós-graduados em Educação Física e Nutrição',
+  'Profissionais com experiência e qualificação',
   'Treino individualizado para o seu objetivo',
   'Dieta adaptada à sua rotina, realidade e alimentos favoritos',
-  'Suporte ágil pelo WhatsApp de segunda a segunda',
-  'Acompanhamento humanizado com foco em resultados',
+  'Suporte ágil e eficiente',
+  'Acompanhamento humanizado com foco em resultados sustentáveis',
 ];
 
 const container = {

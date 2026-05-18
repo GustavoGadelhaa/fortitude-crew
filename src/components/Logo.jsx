@@ -1,6 +1,6 @@
 export default function Logo({ size = 120 }) {
   const mainSize = Math.round(size * 0.12);
-  const crewSize = Math.round(size * 0.075);
+  const crewSize = Math.round(size * 0.07);
 
   return (
     <div className="logo" style={{ width: size, height: size }}>

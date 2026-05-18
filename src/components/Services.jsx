@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
 import { services } from '../constants';
 
 const cardVars = {
@@ -32,6 +35,15 @@ const icons = [
 ];
 
 export default function Services() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <section id="servicos" className="services">
       <div className="services__inner">
@@ -43,25 +55,50 @@ export default function Services() {
           Tudo que você precisa em um só lugar
         </p>
 
-        <div className="services__grid">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.title}
-              className="services__card"
-              variants={cardVars}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <div className="services__card-line" />
-              <div className="services__icon-wrap">{icons[i]}</div>
-              <span className="services__badge">{s.badge}</span>
-              <h3 className="services__title">{s.title}</h3>
-              <p className="services__desc">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+        {isMobile ? (
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            speed={600}
+            autoplay={{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: false }}
+            slidesPerView="auto"
+            centeredSlides={true}
+            spaceBetween={12}
+            className="services__swiper"
+          >
+            {services.map((s, i) => (
+              <SwiperSlide key={s.title} className="services__slide">
+                <div className="services__card services__card--mobile">
+                  <div className="services__card-line" />
+                  <div className="services__icon-wrap">{icons[i]}</div>
+                  <span className="services__badge">{s.badge}</span>
+                  <h3 className="services__title">{s.title}</h3>
+                  <p className="services__desc">{s.desc}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="services__grid">
+            {services.map((s, i) => (
+              <motion.div
+                key={s.title}
+                className="services__card"
+                variants={cardVars}
+                custom={i}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <div className="services__card-line" />
+                <div className="services__icon-wrap">{icons[i]}</div>
+                <span className="services__badge">{s.badge}</span>
+                <h3 className="services__title">{s.title}</h3>
+                <p className="services__desc">{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

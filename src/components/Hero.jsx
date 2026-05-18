@@ -16,15 +16,8 @@ export default function Hero() {
       <div className="hero__glow hero__glow--2" />
 
       <div className="hero__content">
-        <motion.div {...fadeUp(0)}>
-          <img src="/logomelhorsemfundo.png" alt="Fortitude Crew" className="hero__logo-img" />
-        </motion.div>
-
-        <motion.div className="hero__divider" {...fadeUp(0.1)} />
-
-        <motion.h1 className="hero__title" {...fadeUp(0.2)}>
-          SUA EVOLUÇÃO <span className="accent">COMEÇA</span><br />
-          COM DISCIPLINA
+        <motion.h1 className="hero__title" {...fadeUp(0.1)}>
+          SUA EVOLUÇÃO COMEÇA <span className="accent">AGORA</span>
         </motion.h1>
 
         <motion.p className="hero__sub" {...fadeUp(0.3)}>
@@ -34,23 +27,18 @@ export default function Hero() {
 
         <motion.div className="hero__actions" {...fadeUp(0.4)}>
           <a
-            href={WHATSAPP_URL}
+            href={FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn--primary"
           >
-            QUERO TRANSFORMAR MEU CORPO
-          </a>
-          <a
-            href={FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn--ghost"
-          >
-            PRÉ-INSCREVA-SE
+            PRÉ-INSCRIÇÃO
           </a>
         </motion.div>
 
+        <motion.div {...fadeUp(0.55)}>
+          <img src="/logomelhorsemfundocortada.png" alt="Fortitude Crew" className="hero__logo-img" />
+        </motion.div>
 
       </div>
 

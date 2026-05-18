@@ -1,4 +1,8 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 
 const images = [
   {
@@ -16,45 +20,88 @@ const images = [
 ];
 
 export default function Testimonials() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [swiperInstance, setSwiperInstance] = useState(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const toggleAutoplay = () => {
+    if (!swiperInstance) return;
+    if (swiperInstance.autoplay.running) {
+      swiperInstance.autoplay.stop();
+    } else {
+      swiperInstance.autoplay.start();
+    }
+  };
+
   return (
     <section id="depoimentos" className="testimonials">
       <div className="testimonials__inner">
         <span className="section-eyebrow">Resultados Reais</span>
         <h2 className="section-title">
-          ANTES & <span className="accent">DEPOIS</span>
+          ANTES <span className="accent">E</span> DEPOIS
         </h2>
         <p className="section-sub">
           A evolução dos nossos alunos fala por si
         </p>
 
-        <motion.div
-          className="testimonials__grid"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.15 } },
-          }}
-        >
-          {images.map((img) => (
-            <motion.div
-              key={img.src}
-              className="testimonials__card"
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
-              }}
-            >
-              <div className="testimonials__img-wrapper">
-                <img src={img.src} alt="Evolução" className="testimonials__img" loading="lazy" />
-              </div>
-              <div className="testimonials__body">
-                <p className="testimonials__label">{img.label}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {isMobile ? (
+          <Swiper
+            modules={[Autoplay]}
+            onSwiper={setSwiperInstance}
+            loop={true}
+            speed={600}
+            autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: false }}
+            className="testimonials__swiper"
+          >
+            {images.map((img) => (
+              <SwiperSlide key={img.src} onClick={toggleAutoplay}>
+                <div className="testimonials__card testimonials__card--mobile">
+                  <div className="testimonials__img-wrapper">
+                    <img src={img.src} alt="Evolução" className="testimonials__img" loading="lazy" />
+                  </div>
+                  <div className="testimonials__body">
+                    <p className="testimonials__label">{img.label}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <motion.div
+            className="testimonials__grid"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.15 } },
+            }}
+          >
+            {images.map((img) => (
+              <motion.div
+                key={img.src}
+                className="testimonials__card"
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
+                }}
+              >
+                <div className="testimonials__img-wrapper">
+                  <img src={img.src} alt="Evolução" className="testimonials__img" loading="lazy" />
+                </div>
+                <div className="testimonials__body">
+                  <p className="testimonials__label">{img.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

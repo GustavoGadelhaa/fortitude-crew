@@ -40,7 +40,7 @@ export default function FinalCTA() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
-            PRÉ-INSCREVA-SE
+            PRÉ-INSCRIÇÃO
           </motion.a>
         </div>
       </motion.div>
