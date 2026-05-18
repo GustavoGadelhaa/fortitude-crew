@@ -47,7 +47,7 @@ export default function ProblemsSolutions() {
               <path d="M15 9l-6 6M9 9l6 6" />
             </svg>
             <h3 className="ps__title">
-              CANSADO <span className="accent">DE?</span>
+              CANSADO DE?
             </h3>
           </div>
           <div className="ps__list">

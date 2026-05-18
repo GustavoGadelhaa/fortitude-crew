@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Logo from './Logo';
 import { navLinks, WHATSAPP_URL } from '../constants';
 
 export default function Header() {
@@ -34,10 +33,6 @@ export default function Header() {
     <>
       <header className={`header ${hidden ? 'header--hidden' : ''}`}>
         <div className="header__inner">
-          <a href="#" className="header__logo" onClick={close}>
-            <Logo size={40} />
-          </a>
-
           <button
             className={`header__toggle ${open ? 'header__toggle--open' : ''}`}
             onClick={() => setOpen(!open)}

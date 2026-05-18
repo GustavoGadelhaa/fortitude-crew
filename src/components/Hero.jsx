@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Logo from './Logo';
 import { WHATSAPP_URL, FORM_URL } from '../constants';
 
 const fadeUp = (delay = 0) => ({
@@ -18,7 +17,7 @@ export default function Hero() {
 
       <div className="hero__content">
         <motion.div {...fadeUp(0)}>
-          <Logo size={140} />
+          <img src="/logomelhorsemfundo.png" alt="Fortitude Crew" className="hero__logo-img" />
         </motion.div>
 
         <motion.div className="hero__divider" {...fadeUp(0.1)} />
@@ -50,24 +49,11 @@ export default function Hero() {
           >
             PRÉ-INSCREVA-SE
           </a>
-          <a href="#equipe" className="btn btn--ghost">
-            CONHEÇA A EQUIPE
-          </a>
         </motion.div>
 
 
       </div>
 
-      <motion.div
-        className="hero__scroll"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <span>Role</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-        </svg>
-      </motion.div>
     </section>
   );
 }
