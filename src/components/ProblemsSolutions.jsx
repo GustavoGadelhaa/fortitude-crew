@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const problems = [
@@ -30,7 +31,61 @@ const itemR = {
   show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] } },
 };
 
+function ListItem({ text, variant, bulletClass }) {
+  return (
+    <li className={variant}>
+      <span className={bulletClass} />
+      {text}
+    </li>
+  );
+}
+
 export default function ProblemsSolutions() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <section className="ps">
+        <div className="ps__inner">
+          <div className="ps__col">
+            <div className="ps__col-header">
+              <h3 className="ps__title ps__title--bad">CANSADO DE?</h3>
+            </div>
+            <div className="ps__list">
+              {problems.map((p) => (
+                <ListItem key={p} text={p} variant="ps__item ps__item--bad" bulletClass="ps__bullet ps__bullet--bad" />
+              ))}
+            </div>
+          </div>
+
+          <div className="ps__divider">
+            <div className="ps__divider-line" />
+            <span className="ps__divider-badge">VS</span>
+            <div className="ps__divider-line" />
+          </div>
+
+          <div className="ps__col">
+            <div className="ps__col-header">
+              <h3 className="ps__title ps__title--good">AQUI VOCÊ <span className="accent">RECEBE</span></h3>
+            </div>
+            <div className="ps__list">
+              {solutions.map((s) => (
+                <ListItem key={s} text={s} variant="ps__item ps__item--good" bulletClass="ps__bullet ps__bullet--good" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="ps">
       <div className="ps__inner">
@@ -42,9 +97,7 @@ export default function ProblemsSolutions() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="ps__col-header">
-            <h3 className="ps__title ps__title--bad">
-              CANSADO DE?
-            </h3>
+            <h3 className="ps__title ps__title--bad">CANSADO DE?</h3>
           </div>
           <div className="ps__list">
             {problems.map((p) => (
@@ -70,9 +123,7 @@ export default function ProblemsSolutions() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="ps__col-header">
-            <h3 className="ps__title ps__title--good">
-              AQUI VOCÊ <span className="accent">RECEBE</span>
-            </h3>
+            <h3 className="ps__title ps__title--good">AQUI VOCÊ <span className="accent">RECEBE</span></h3>
           </div>
           <div className="ps__list">
             {solutions.map((s) => (
