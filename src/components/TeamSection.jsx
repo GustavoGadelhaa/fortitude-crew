@@ -13,7 +13,7 @@ const cardVars = {
 export default function TeamSection() {
   const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef(null);
-  const posRef = useRef(0);
+  const angleRef = useRef(0);
   const lastXRef = useRef(0);
   const draggingRef = useRef(false);
   const rafRef = useRef(null);
@@ -27,7 +27,7 @@ export default function TeamSection() {
 
   const updateTransform = useCallback(() => {
     if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(${posRef.current}px)`;
+      trackRef.current.style.transform = `rotateY(${angleRef.current}deg)`;
     }
   }, []);
 
@@ -38,8 +38,8 @@ export default function TeamSection() {
 
   const handlePointerMove = useCallback((e) => {
     if (!draggingRef.current) return;
-    const delta = e.clientX - lastXRef.current;
-    posRef.current += delta;
+    const delta = (e.clientX - lastXRef.current) * 0.6;
+    angleRef.current = (angleRef.current + delta) % 360;
     lastXRef.current = e.clientX;
     updateTransform();
   }, [updateTransform]);
@@ -50,17 +50,11 @@ export default function TeamSection() {
 
   useEffect(() => {
     if (!isMobile) return;
-    const track = trackRef.current;
-    if (!track) return;
-    const cardWidth = 280 + 16;
-    const totalWidth = cardWidth * team.length;
     let lastTime = performance.now();
-
     const animate = (now) => {
       if (!draggingRef.current) {
-        const delta = (now - lastTime) * 0.04;
-        posRef.current -= delta;
-        if (posRef.current <= -totalWidth) posRef.current += totalWidth;
+        const delta = (now - lastTime) * 0.032;
+        angleRef.current = (angleRef.current - delta) % 360;
         updateTransform();
       }
       lastTime = now;
@@ -68,7 +62,7 @@ export default function TeamSection() {
     };
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [isMobile, updateTransform, team.length]);
+  }, [isMobile, updateTransform]);
 
   return (
     <section id="equipe" className="team">
@@ -81,16 +75,20 @@ export default function TeamSection() {
         </p>
 
         {isMobile ? (
-          <div className="team__marquee"
+          <div className="team__carousel-3d"
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerUp}
             style={{ touchAction: 'none' }}
           >
-            <div className="team__marquee-track" ref={trackRef}>
-              {[...team, ...team].map((p, i) => (
-                <div key={`${p.name}-${i}`} className="team__card team__card--mobile">
+            <div className="team__carousel-3d-track" ref={trackRef}>
+              {team.map((p, i) => (
+                <div
+                  key={p.name}
+                  className="team__card team__card--3d"
+                  style={{ transform: `rotateY(${i * 120}deg) translateZ(100px)` }}
+                >
                   <div className="team__img-wrapper">
                     <img src={p.img} alt={p.name} className="team__img" loading="lazy" />
                   </div>
