@@ -7,7 +7,7 @@ import 'swiper/css';
 const images = [
   {
     src: '/evolucao.png',
-    label: '"O Gustavo entrou em um bulking longo sem acompanhamento durante um bom tempo, sem controle de qualidade alimentar, acabou ganhando mais peso do que o necessário, um erro comum.\n\nNosso trabalho foi corrigir isso com consistência: saímos de um quadro de obesidade, com alto percentual de gordura, para um físico mais ativo metabolicamente, com baixo percentual e, principalmente, sustentável.\n\nHoje ele mantém rotina, aproveita finais de semana, não abre mão do prazer em comer e, ainda assim, sustenta um físico estético, com abdômen aparente, boa performance e saúde física e mental em dia. (Seguimos inclusive no trabalho de implementar cada vez mais frutas e vegetais na dieta, isso que vem sendo um sucesso"',
+    label: '"O Gustavo entrou em um bulking longo sem acompanhamento durante um bom tempo, sem controle de qualidade alimentar, acabou ganhando mais peso do que o necessário, um erro comum.\n\nNosso trabalho foi corrigir isso com consistência: saímos de um quadro de obesidade, com alto percentual de gordura, para um físico mais ativo metabolicamente, com baixo percentual e, principalmente, sustentável.\n\nHoje ele mantém rotina, aproveita finais de semana, não abre mão do prazer em comer e, ainda assim, sustenta um físico estético, com abdômen aparente, boa performance e saúde física e mental em dia.\n\n(Seguimos inclusive no trabalho de implementar cada vez mais frutas e vegetais na dieta, isso que vem sendo um sucesso"',
     pos: 'center',
   },
   {
@@ -34,7 +34,8 @@ export default function Testimonials() {
   const trackRef = useRef(null);
   const stepRef = useRef(0);
 
-  const maxIndex = Math.max(0, images.length - 3);
+  const visibleCards = isMobile ? 1 : 2;
+  const maxIndex = Math.max(0, images.length - visibleCards);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -72,7 +73,7 @@ export default function Testimonials() {
     }
   };
 
-  const showArrows = images.length > 3;
+  const showArrows = images.length > visibleCards;
 
   return (
     <section id="depoimentos" className="testimonials">

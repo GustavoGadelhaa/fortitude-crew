@@ -898,7 +898,8 @@
 
 .testimonials__track {
   display: flex;
-  gap: 1.5rem;
+  gap: 2.5rem;
+  width: 100%;
 }
 
 .testimonials__card {
@@ -909,7 +910,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  flex: 0 0 calc((100% - 3rem) / 3);
+  flex: 0 0 calc((100% - 2.5rem) / 2);
 }
 
 .testimonials__card:hover {
@@ -946,7 +947,7 @@
 
 .testimonials__img-wrapper {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
 }
 
@@ -957,13 +958,9 @@
 }
 
 .testimonials__body {
-  padding: 1.25rem;
+  padding: 1rem;
   text-align: left;
   flex: 1;
-}
-
-.testimonials__track .testimonials__body {
-  min-height: 160px;
 }
 
 .testimonials__label {
