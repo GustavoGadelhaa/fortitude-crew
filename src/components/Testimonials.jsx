@@ -17,6 +17,10 @@ const images = [
     src: '/evoalucaofeminina.png',
     label: '"A Livia é uma paciente diabética tipo 1, então além do cuidado convencional, temos toda a atenção com o controle glicêmico.\n\nAo longo do processo, tivemos uma boa evolução na recomposição corporal. Em alguns momentos houve pequenas oscilações, que faz parte de um processo que não é linear, e seguimos ajustando tudo com calma e estratégia.\n\nHoje, o maior avanço está na base: estamos evoluindo na inclusão de frutas e vegetais, melhorando a qualidade da alimentação e a relação com a comida.\n\nResultado que vai além de estética: mais saúde, mais controle e um estilo de vida mais sustentável"',
   },
+  {
+    src: '/evolucao3.png',
+    label: '"O Luís é a prova de que genética sem direção não constrói um físico de alto nível.\n\nQuando ele chegou até mim, estava com mais de 100kg, treinando sem estratégia, comendo sem planejamento e acumulando volume sem qualidade. Apesar da estrutura absurda, faltava desenvolvimento muscular em pontos importantes e, principalmente, faltava organização.\n\nO objetivo dele era competir. E foi exatamente aí que começamos a construir tudo da forma certa.\n\nEm cerca de 4 meses de preparação, conseguimos transformar completamente o físico dele. Na pesagem da competição, ele subiu com 79kg, saindo de mais de 100kg no início do processo. Foram mais de 18kg reduzidos durante a preparação, mantendo qualidade muscular e elevando o nível do físico de forma absurda.\n\nAlém do condicionamento, conseguimos melhorar pontos que antes eram negligenciados, principalmente glúteos e posteriores, trazendo muito mais equilíbrio e densidade muscular.\n\nNada disso veio de mágica.\nVeio de disciplina, constância e um planejamento individualizado de treino, dieta e manipulação feito para a realidade dele.\n\nResultado não é sobre ter genética boa.\nÉ sobre saber potencializar aquilo que você já tem."',
+  },
 ];
 
 export default function Testimonials() {
