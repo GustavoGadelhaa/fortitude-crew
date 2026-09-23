@@ -7,7 +7,7 @@ export const team = [
     name: 'Ana Clara Barros',
     role: 'Profissional de Educação Física',
     desc: 'Profissional de Educação Física especializada em prescrição de treinos e acompanhamento de atletas.',
-    img: '/docs/profissionais/anaclarab.png',
+    img: '/docs/profissionais/anaclarab.jpg',
     cred: '019507-G/CE',
   },
   {

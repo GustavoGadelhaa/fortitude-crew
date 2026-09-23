@@ -517,9 +517,8 @@
 }
 
 .team__card:first-child .team__img {
-  transform: scale(2.5) rotate(-90deg);
-  margin-top: 11rem;
-  object-fit: contain;
+  transform: rotate(-90deg);
+}
 }
 
 .team__body {
