@@ -4,11 +4,11 @@ export const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf7pO4j2eeWCqm
 
 export const team = [
   {
-    name: 'Mário Quesado',
-    role: 'Nutricionista',
-    desc: 'Especialista em nutrição esportiva e planejamento alimentar individualizado para performance e composição corporal.',
-    img: '/docs/profissionais/marioquesado.png',
-    cred: 'CRN11: 19682',
+    name: 'Ana Clara Barros',
+    role: 'Profissional de Educação Física',
+    desc: 'Profissional de Educação Física especializada em prescrição de treinos e acompanhamento de atletas.',
+    img: '/docs/profissionais/anaclarab.png',
+    cred: '019507-G/CE',
   },
   {
     name: 'Felipe Torres',
