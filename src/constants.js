@@ -17,11 +17,11 @@ export const team = [
     img: '/docs/profissionais/felipetorres.png',
   },
   {
-    name: 'Fernando Medeiros',
-    role: 'Profissional de Educação Física',
-    desc: 'Profissional de Educação Física especializado em prescrição de treinos individualizados e avaliação funcional.',
-    img: '/docs/profissionais/fernandomedeiros.png',
-    cred: 'CREF: 021647-G/CE',
+    name: 'Mário Quesado',
+    role: 'Nutricionista',
+    desc: 'Especialista em nutrição esportiva e planejamento alimentar individualizado para performance e composição corporal.',
+    img: '/docs/profissionais/marioquesado.png',
+    cred: 'CRN: 19692',
   },
 ];
 
